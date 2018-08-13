@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Generic Remote</title>
+<meta charset="utf-8" />
+<meta version="1.0" />
+<script id="stylesheet" type="application/xml">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/remotedescription">
+	<div class="column">
+	<h1>Generic Remote MIDI Setup</h1>
+	<div class="section" id="ctrltable">
+    <h2><xsl:value-of select="ctrltable/@name" /></h2>
+    <table>
+			<tr>
+			<th>Control Name</th>
+			<th>MIDI Status</th>
+			<th>MIDI Channel</th>
+			<th>Address</th>
+			<th>Max Value</th>
+			<th>Flags</th>
+			</tr>
+      <xsl:for-each select="ctrltable/ctrl">
+      <tr>
+				<td><xsl:value-of select="name" /></td>
+				<td><xsl:value-of select="stat" /></td>
+				<td><xsl:value-of select="chan" /></td>
+				<td><xsl:value-of select="addr" /></td>
+				<td><xsl:value-of select="max" /></td>
+				<td><xsl:value-of select="flags" /></td>
+      </tr>
+      </xsl:for-each>
+    </table>
+		</div>
+		</div>
+		<div class="column">
+		<h1>Generic Remote Banks</h1>
+		<xsl:for-each select="bank">
+			<div class="section" id="banks">
+			<h2><xsl:value-of select="./@name" /></h2>
+			<table>
+				<tr>
+					<th>Control Name</th>
+					<th>Device</th>
+					<th>MIDI Channel</th>
+					<th>Name</th>
+					<th>Flags</th>
+				</tr>
+				<xsl:for-each select="entry">
+				  <tr>
+						<td><xsl:value-of select="./@ctrl" /></td>
+						<td><xsl:value-of select="value/device" /></td>
+						<td><xsl:value-of select="value/chan" /></td>
+						<td><xsl:value-of select="value/name" /></td>
+						<td><xsl:value-of select="value/flags" /></td>
+					</tr>
+				</xsl:for-each>
+			</table>
+			</div>
+		</xsl:for-each>
+		</div>
+</xsl:template>
+</xsl:stylesheet>
+</script>
+<style type="text/css">
+@media print {
+	form {
+		display: none
+	}
+	div#content: {
+		column-count 1
+	}
+	table {
+		border-collapse: collapse;
+	}
+	table, th, td {
+		border: solid 1px black;
+	}
+  th, td {
+		padding: 6px;
+	}
+}
+@media screen {
+	div#content::after {
+		clear: both;
+    display: table;
+		content: "";
+	}
+	div.column {
+		float: left;
+		width: 40%;
+		padding: 10px;
+		}
+	div.section {
+		break-inside: avoid-column;
+		-webkit-column-break-inside: avoid;
+		page-break-inside: avoid;
+		border: solid 1px black;
+		padding-left: 20px;
+		padding-right: 20px;
+		padding-bottom: 20px;
+		padding-top: 10px;
+		margin-bottom: 20px;
+		background-color: #f6f6f6;
+	}
+	div#ctrltable {
+		}
+	body {
+		margin: 30px;
+		}
+	h2 {
+		background-color: darkred;
+		padding: 6px;
+		border: solid 1px black;
+		color: white;
+		margin-bottom: 10px;
+		font-size: 1.2em;
+}
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+	table, th, td {
+		border: solid 1px black;
+	}
+	tr {
+		background-color: white;
+	}
+	th, td {
+		padding: 6px;
+	}
+	tr:nth-child(odd) {
+		background-color: #e4e4e4;
+	}
+	tr:hover {
+		background-color: #f6f6f6;
+	}
+	th {
+		background-color: #345469;
+		color: white;
+		}
+}
+</style>
+</head>
+<body>
+<div id="app">
+<form>
+<p>Select exported "generic remote" XML file:
+<input type="file" accept=".xml" id="inputfile" />
+</p>
+</form>
+</div>
+<div id="content">
+</div>
+<script>
+var filename;
+function handleFileSelect(evt) {
+	var input = evt.target; // FileList object
+	
+	var reader = new FileReader();
+
+	// Closure to capture the file information.
+	reader.onload = function() {
+		var data = reader.result;
+		//document.getElementById('here').innerHTML = reader.result;
+		var proc = new XSLTProcessor();
+		parser = new DOMParser();
+		xsl = parser.parseFromString(document.getElementById("stylesheet").innerHTML, "text/xml");
+		xml = parser.parseFromString(data, "text/xml");
+		proc.importStylesheet( xsl );
+		var ownerDocument = document.implementation.createDocument("", "test", null);
+		var fragment = proc.transformToFragment(xml, document);
+	//	console.log(fragment);
+		document.getElementById("content").appendChild(fragment);
+	};
+	document.getElementById("content").innerHTML = "";
+	// Read in the image file as a data URL.
+	reader.readAsText(input.files[0]);
+	document.getElementsByTagName("title")[0].innerHTML = input.files[0].name;
+}
+  document.getElementById('inputfile').addEventListener('change', handleFileSelect, false);
+
+
+</script>	
+</body>

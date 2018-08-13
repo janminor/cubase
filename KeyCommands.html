@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta version="1.0" />
+<script id="stylesheet" type="application/xml">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/">
+
+    <xsl:apply-templates select="//list[@name='Commands' and ./item/string[@name='Key']]" />
+</xsl:template>
+<xsl:template match="//list[@name='Commands' and ./item/string[@name='Key']]">
+	<div class="section">
+    <h2><xsl:value-of select="../string/@value" /></h2>
+    <table>
+			<tr><th>Description</th><th>Key Command</th></tr>
+      <xsl:for-each select="item/string[@name='Key']">
+      <tr>
+				<td><xsl:value-of select="../string[@name='Name']/@value" /></td>
+				<td><xsl:value-of select="./@value" /></td>
+      </tr>
+      </xsl:for-each>
+    </table>
+	</div>
+</xsl:template>
+</xsl:stylesheet>
+</script>
+<style type="text/css">
+@media print {
+	form {
+		display: none
+	}
+	div#content: {
+		column-count 1
+	}
+	table {
+		border-collapse: collapse;
+	}
+	table, th, td {
+		border: solid 1px black;
+	}
+  th, td {
+		padding: 6px;
+	}
+}
+@media screen {
+	div#content {
+	column-count: 2;
+	}
+	div.section {
+		break-inside: avoid-column;
+		-webkit-column-break-inside: avoid;
+		page-break-inside: avoid;
+		border: solid 1px black;
+		width: 400px;
+		padding-left: 20px;
+		padding-right: 20px;
+		padding-bottom: 20px;
+		padding-top: 10px;
+		margin-bottom: 20px;
+		background-color: #f6f6f6;
+	}
+	body {
+		margin: 30px;
+		}
+	h2 {
+		background-color: darkred;
+		padding: 6px;
+		border: solid 1px black;
+		color: white;
+		margin-bottom: 10px;
+		font-size: 1.2em;
+}
+	table {
+		border-collapse: collapse;
+		width: 400px;
+	}
+	table, th, td {
+		border: solid 1px black;
+	}
+	tr {
+		background-color: white;
+	}
+	th, td {
+		padding: 6px;
+	}
+	tr:nth-child(odd) {
+		background-color: #e4e4e4;
+	}
+	tr:hover {
+		background-color: #f6f6f6;
+	}
+	th {
+		background-color: #345469;
+		color: white;
+		}
+}
+</style>
+</head>
+<body>
+<div id="app">
+<form>
+<p>Select "Key Commands.xml" file:
+<input type="file" accept=".xml" id="inputfile"/>
+Columns:   <input type="number" id="colcount" name="quantity" min="1" max="3" step="1" value="2">
+</p>
+</form>
+</div>
+<div id="header">
+  <h1>Cubase Key Commands</h1>
+</div>
+<div id="content">
+</div>
+<script>
+
+function handleFileSelect(evt) {
+	var input = evt.target; // FileList object
+	
+	var reader = new FileReader();
+
+	// Closure to capture the file information.
+	reader.onload = function() {
+		var data = reader.result
+		//document.getElementById('here').innerHTML = reader.result;
+		var proc = new XSLTProcessor();
+		parser = new DOMParser();
+		xsl = parser.parseFromString(document.getElementById("stylesheet").innerHTML, "text/xml");
+		xml = parser.parseFromString(data, "text/xml");
+		proc.importStylesheet( xsl );
+		var ownerDocument = document.implementation.createDocument("", "test", null);
+		var fragment = proc.transformToFragment(xml, document);
+		document.getElementById("content").appendChild(fragment);
+	};
+
+	// Read in the image file as a data URL.
+	reader.readAsText(input.files[0]);
+}
+function handleColChange (evt) {
+	var nr = evt.target.value;
+	document.getElementById('content').style["column-count"] = nr;
+}
+  document.getElementById('inputfile').addEventListener('change', handleFileSelect, false);
+  document.getElementById('colcount').addEventListener('change', handleColChange, false);
+
+
+</script>	
+</body>
