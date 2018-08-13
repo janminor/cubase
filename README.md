@@ -11,4 +11,8 @@ On a Mac, look in “/Users/<user name>/Library/Preferences/<program name>/”.
 For the generic Remote, you first need to export the config you want from the "Generic Remote" Dialog in Cubase.
 
 Then just double-click in the HTML-File, open the XML File and go.
+
+### drummaps
+
+a few drum maps for Cubase
   
