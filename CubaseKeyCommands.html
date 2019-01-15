@@ -28,12 +28,16 @@
 <script id="stylesheetcsv" type="application/xml">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:template match="/">
-    <xsl:apply-templates select="//list[@name='Commands']" />
+	<pre>
+"Section","Command","Key"
+<xsl:apply-templates select="//list[@name='Commands']" />
+	</pre>
 </xsl:template>
 <xsl:template match="//list[@name='Commands']">
 <xsl:for-each select="item">"<xsl:value-of select="../../string/@value" />","<xsl:value-of select="./string[@name='Name']/@value" />","<xsl:value-of select="./string[@name='Key']/@value" />"<xsl:text>&#xD;</xsl:text></xsl:for-each>
 </xsl:template>
 </xsl:stylesheet>
+
 </script>
 <style type="text/css">
 @media print {
@@ -153,7 +157,12 @@ function handleFileSelect(evt) {
 		proc.importStylesheet( xsl );
 		var ownerDocument = document.implementation.createDocument("", "test", null);
 		var fragment = proc.transformToFragment(xml, document);
-		document.getElementById(output_element_id).appendChild(fragment);
+		if ( output_type === "html" ) {
+			document.getElementById(output_element_id).appendChild(fragment);
+		}
+		else {
+			document.body.innerHTML = "<pre>" + fragment.firstElementChild.innerHTML + "</pre>"
+		}
 	};
 
 	// Read in the image file as a data URL.
