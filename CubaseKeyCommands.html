@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta version="1.0" />
-<script id="stylesheet" type="application/xml">
+<script id="stylesheethtml" type="application/xml">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:template match="/">
 
@@ -22,6 +22,16 @@
       </xsl:for-each>
     </table>
 	</div>
+</xsl:template>
+</xsl:stylesheet>
+</script>
+<script id="stylesheetcsv" type="application/xml">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:template match="/">
+    <xsl:apply-templates select="//list[@name='Commands' and ./item/string[@name='Key']]" />
+</xsl:template>
+<xsl:template match="//list[@name='Commands' and ./item/string[@name='Key']]">
+<xsl:for-each select="item/string[@name='Key']">"<xsl:value-of select="../../../string/@value" />","<xsl:value-of select="../string[@name='Name']/@value" />","<xsl:value-of select="./@value" />"<xsl:text>&#xD;</xsl:text></xsl:for-each>
 </xsl:template>
 </xsl:stylesheet>
 </script>
@@ -100,22 +110,35 @@
 <body>
 <div id="app">
 <form>
-<p>Select "Key Commands.xml" file:
-<input type="file" accept=".xml" id="inputfile"/>
-Columns:   <input type="number" id="colcount" name="quantity" min="1" max="3" step="1" value="2">
+<p>
+First select conversion format: <input type="radio" name="convert" value="html" checked /> HTML or
+<input type="radio" name="convert" value="csv"  /> CSV &nbsp; (to change format later please reload page)
+</p>
+<p>
+Then select "Key Commands.xml" file:
+<input type="file" accept=".xml" id="inputfile"/>&nbsp;
+Display columns:   <input type="number" id="colcount" name="quantity" min="1" max="3" step="1" value="1">
 </p>
 </form>
 </div>
 <div id="header">
   <h1>Cubase Key Commands</h1>
 </div>
-<div id="content">
+<div id="htmlcontent">
 </div>
+<pre id="csvcontent"></pre>
 <script>
 
 function handleFileSelect(evt) {
 	var input = evt.target; // FileList object
 	
+	var output_type = document.querySelector('input[name="convert"]:checked').value;
+	var stylesheet = "stylesheethtml";
+	var output_element_id = "htmlcontent"
+	if ( output_type === "csv" ) {
+		stylesheet = "stylesheetcsv"
+		output_element_id = "csvcontent"
+	}	
 	var reader = new FileReader();
 
 	// Closure to capture the file information.
@@ -124,12 +147,13 @@ function handleFileSelect(evt) {
 		//document.getElementById('here').innerHTML = reader.result;
 		var proc = new XSLTProcessor();
 		parser = new DOMParser();
-		xsl = parser.parseFromString(document.getElementById("stylesheet").innerHTML, "text/xml");
+
+		xsl = parser.parseFromString(document.getElementById(stylesheet).innerHTML, "text/xml");
 		xml = parser.parseFromString(data, "text/xml");
 		proc.importStylesheet( xsl );
 		var ownerDocument = document.implementation.createDocument("", "test", null);
 		var fragment = proc.transformToFragment(xml, document);
-		document.getElementById("content").appendChild(fragment);
+		document.getElementById(output_element_id).appendChild(fragment);
 	};
 
 	// Read in the image file as a data URL.
@@ -137,10 +161,11 @@ function handleFileSelect(evt) {
 }
 function handleColChange (evt) {
 	var nr = evt.target.value;
-	document.getElementById('content').style["column-count"] = nr;
+	document.getElementById('htmlcontent').style["column-count"] = nr;
 }
-  document.getElementById('inputfile').addEventListener('change', handleFileSelect, false);
-  document.getElementById('colcount').addEventListener('change', handleColChange, false);
+document.getElementById('inputfile').addEventListener('change', handleFileSelect, false);
+document.getElementById('colcount').addEventListener('change', handleColChange, false);
+
 
 
 </script>	
