@@ -28,10 +28,10 @@
 <script id="stylesheetcsv" type="application/xml">
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:template match="/">
-    <xsl:apply-templates select="//list[@name='Commands' and ./item/string[@name='Key']]" />
+    <xsl:apply-templates select="//list[@name='Commands']" />
 </xsl:template>
-<xsl:template match="//list[@name='Commands' and ./item/string[@name='Key']]">
-<xsl:for-each select="item/string[@name='Key']">"<xsl:value-of select="../../../string/@value" />","<xsl:value-of select="../string[@name='Name']/@value" />","<xsl:value-of select="./@value" />"<xsl:text>&#xD;</xsl:text></xsl:for-each>
+<xsl:template match="//list[@name='Commands']">
+<xsl:for-each select="item">"<xsl:value-of select="../../string/@value" />","<xsl:value-of select="./string[@name='Name']/@value" />","<xsl:value-of select="./string[@name='Key']/@value" />"<xsl:text>&#xD;</xsl:text></xsl:for-each>
 </xsl:template>
 </xsl:stylesheet>
 </script>
