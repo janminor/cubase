@@ -7,9 +7,9 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:template match="/">
 
-    <xsl:apply-templates select="//list[@name='Commands' and ./item/string[@name='Key']]" />
+    <xsl:apply-templates select="//list[@name='Commands' and (./item/string[@name='Key'] or ./item/list[@name='Key'])]" />
 </xsl:template>
-<xsl:template match="//list[@name='Commands' and ./item/string[@name='Key']]">
+<xsl:template match="//list[@name='Commands' and (./item/string[@name='Key'] or ./item/list[@name='Key']) ]">
 	<div class="section">
     <h2><xsl:value-of select="../string/@value" /></h2>
     <table>
@@ -20,6 +20,13 @@
 				<td><xsl:value-of select="./@value" /></td>
       </tr>
       </xsl:for-each>
+			<xsl:for-each select="item/list[@name='Key']/item">
+      <tr>
+				<td><xsl:value-of select="../../string[@name='Name']/@value" /></td>
+				<td><xsl:value-of select="./@value" /></td>
+      </tr>
+			</xsl:for-each>
+
     </table>
 	</div>
 </xsl:template>
@@ -34,6 +41,7 @@
 	</pre>
 </xsl:template>
 <xsl:template match="//list[@name='Commands']">
+<xsl:for-each select="item/list/item">"<xsl:value-of select="../../../../string/@value" />","<xsl:value-of select="../../string[@name='Name']/@value" />","<xsl:value-of select="./@value" />"<xsl:text>&#xD;</xsl:text></xsl:for-each>
 <xsl:for-each select="item">"<xsl:value-of select="../../string/@value" />","<xsl:value-of select="./string[@name='Name']/@value" />","<xsl:value-of select="./string[@name='Key']/@value" />"<xsl:text>&#xD;</xsl:text></xsl:for-each>
 </xsl:template>
 </xsl:stylesheet>
