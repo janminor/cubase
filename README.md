@@ -3,7 +3,7 @@ Helpful things for Cubase
 
 ### CubaseKeyCommands.html, CubaseGenericRemote.html
 
-Single Page HTMl apps that convert the Cubase XML Format of the Keycommands preference file or an exported Generic Remote file to a pretty HTML display that can be printed or saved.
+Single Page HTML apps that convert the Cubase XML Format of the Keycommands preference file or an exported Generic Remote file to a pretty HTML display that can be printed or saved.
 
 Download the zip file (https://github.com/janminor/cubase/archive/master.zip) to your computer, unzip and open the resulting folder.
 
