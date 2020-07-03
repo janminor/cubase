@@ -12,6 +12,8 @@ For the generic Remote, you first need to export the config you want from the "G
 
 Then just double-click in the HTML-File, open the XML File and go.
 
+Or do it online [here](https://janminor.gihub.io/cubase/index.html)
+
 ### drummaps
 
 a few drum maps for Cubase
