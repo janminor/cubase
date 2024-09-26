@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AudioExportPostProcess>
+   <Description>MP3 to Dropbox</Description>
+   <Icon></Icon>
+   <Executable>
+      <Path>C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe</Path>
+      <Argument>"C:\path\to\mp3todropbox.ps1" "$PATH"</Argument>
+   </Executable>
+   <RunOnce>true</RunOnce>
+   <WaitDone>false</WaitDone>
+</AudioExportPostProcess>
