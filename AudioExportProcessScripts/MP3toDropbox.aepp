@@ -4,7 +4,11 @@
    <Icon></Icon>
    <Executable>
       <Path>C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe</Path>
-      <Argument>"C:\path\to\mp3todropbox.ps1" "$PATH"</Argument>
+	  <Argument>-ExecutionPolicy</Argument>
+	  <Argument>Bypass</Argument>
+      <Argument>-File</Argument>
+	  <Argument>C:\ProgramData\Steinberg\Audio Export Post Process Scripts\MP3toDropbox.ps1</Argument>
+	  <Argument>$PATH</Argument>
    </Executable>
    <RunOnce>true</RunOnce>
    <WaitDone>false</WaitDone>

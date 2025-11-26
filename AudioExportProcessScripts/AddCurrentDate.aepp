@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AudioExportPostProcess>
+   <Description>AddCurrentDate</Description>
+   <Icon></Icon>
+   <Executable>
+      <Path>C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe</Path>
+	  <Argument>-ExecutionPolicy</Argument>
+	  <Argument>Bypass</Argument>
+      <Argument>-File</Argument>
+	  <Argument>C:\ProgramData\Steinberg\Audio Export Post Process Scripts\AddCurrentDate.ps1</Argument>
+	  <Argument>$PATH</Argument>
+   </Executable>
+   <RunOnce>true</RunOnce>
+   <WaitDone>true</WaitDone>
+</AudioExportPostProcess>
