@@ -13,3 +13,7 @@ Use at your own risk.
 1. Copy the .aepp and .ps1 file of the same name to C:\ProgramData\Steinberg\Audio Export Post Process Scripts
 
 2. Check the Powershell script for additional configuration that might be neccessary
+
+## Instructions MacOS
+
+I added the AddCurrentDateMacOS.aepp with a bash script that could work on MacOS. You need to put the script somewhere, make it executable (chmod 755 or whatever it is on MacOs), and modify the path to the script in the .aepp file. I cannot give any help for MacOS, but if someone can test it and maybe even fix it, I'll be happy to accept a PR.

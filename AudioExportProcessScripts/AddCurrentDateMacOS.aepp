@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AudioExportPostProcess>
+   <Description>AddCurrentDate</Description>
+   <Icon></Icon>
+   <Executable>
+      <Path>/bin/bash</Path>
+	  <Argument>~/Library/Application Support/Steinberg/Cubase/AudioExportPostProcess/AddCurrentDate.sh</Argument>
+	  <Argument>$PATH</Argument>
+   </Executable>
+   <RunOnce>true</RunOnce>
+   <WaitDone>true</WaitDone>
+</AudioExportPostProcess>
