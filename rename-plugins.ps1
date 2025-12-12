@@ -1,4 +1,5 @@
-﻿$name_map = @{
+﻿# just a test. do not use this.
+$name_map = @{
 	"ValhallaRoom" = "VRoom";
 	"ValhallaPlate" = "VPlate";
 	"ValhallaVintageVerb" = "VVintageVerb";

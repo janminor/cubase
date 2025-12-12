@@ -5,7 +5,9 @@ Helpful things for Cubase
 
 Single Page HTML apps that convert the Cubase XML Format of the Keycommands preference file or an exported Generic Remote file to a pretty HTML display that can be printed or saved.
 
-Download the zip file (https://github.com/janminor/cubase/archive/master.zip) to your computer, unzip and open the resulting folder.
+Do it online [here](https://janminor.github.io/cubase/index.html)
+
+Or Download the zip file (https://github.com/janminor/cubase/archive/master.zip) to your computer, unzip and open the resulting folder to have it locally availabe.
 
 You will need an xml file from Cubase as input.
 
@@ -16,9 +18,11 @@ For the generic Remote, you first need to export the config you want from the "G
 
 Then just double-click in the HTML-File (CubaseKeyCommands.html or CubaseGenericRemote.html), open the XML File and go.
 
-Or do it online [here](https://janminor.github.io/cubase/index.html)
-
 ### drummaps
 
 a few drum maps for Cubase
+
+### Audio Export Post Process Scripts for Cubase 
+
+See [README.md](AudioExportProcessScripts\README.md).
   
