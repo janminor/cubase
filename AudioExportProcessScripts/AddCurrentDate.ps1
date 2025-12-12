@@ -3,23 +3,35 @@ Param(
 	[string]
 	$inputfile
 )
-## Configuration
-# this determines the date format. See https://learn.microsoft.com/en-gb/dotnet/standard/base-types/custom-date-and-time-format-strings
+
+## CONFIGURATION
+#
+# this determines the default date format. See https://learn.microsoft.com/en-gb/dotnet/standard/base-types/custom-date-and-time-format-strings
 # e.g.
 #   yyyy = year with 4 digits 
 # 	MM = month of year, two digits, zero-padded
 # 	dd = day of month, two digits, zero-padded
 # 	HH = Hour of day
 # 	mm = minute of hour
-# You can also put this format string in the Cubase File name in the export dialog, but it must be enclosed in '%', e.g. "%yyyy-MM-dd% - my filename"
-# in that case, the next two variables will be ignored. But be careful if the format string is incorrect, the script will just fail
 $dateformat = "yyyy-MM-dd"
 # The date will be inserted at the beginning of the file name and will be separtated from the original name by this string
 $separator = " "
+
+# You can also put a date format string in the file name field in the audio export dialog,
+# but then it must be enclosed in '%' characters, e.g. 
+#   "%yyyy-MM-dd_HHmm% mixdown"
+# which will result in a name like
+#  "2025-12-24_1430 mixdown.wav"
+# But be careful if the format string is incorrect, the script will just fail
+
+
 # this script will write log output to the following file
 $logFile = "C:\temp\CubasePostExport.log"
-## /Configuration
 
+# END CONFIGURATION
+
+
+# Do NOT edit below here unless you know what you are doing
 
 try {
 	New-Item -force $logFile

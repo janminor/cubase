@@ -3,10 +3,23 @@ set -euo pipefail
 
 # Usage: AddCurrentDate.sh <input-xml-file>
 
-# the default date format is YYYY-MM-DD, set in the dateformat variable as a strfstime format string
-# it should be portable
-# you can also specify a desired date format in the file name in Cubase like this
-# "%YYYY-MM-DD HH-mm% mixdown filename"
+## CONFIGURATION
+#
+# Default date format, will result in e.g. "2025-12-04"
+# possible values for date components are
+# %Y = year
+# %m = month
+# %d = day
+# %H = hours
+# %M = minutes
+dateformat="%Y-%m-%d"
+# Separator between date and original filename
+separator=" "
+
+# you can also specify a desired date format in the "File Location->Name" field of 
+# the Export Audio Mixdown dialog, e.g.:
+#   %YYYY-MM-DD HH-mm% mixdown
+# this will result in a file named like "2024-12-24 14:30 mixdown.wav"
 # everything between the % will be converted to the correct format string for date. 
 # only the following values are allowed:
 # YYYY = year, 4 digits
@@ -17,11 +30,8 @@ set -euo pipefail
 # if it results in a wrong format string for date, this script will fail.
 
 
+# do NOT edit below here unless you know what you are doing!
 inputfile="${1:-}"
-# Default date format (strftime)
-dateformat="%Y-%m-%d"
-# Separator between date and original filename
-separator=" "
 # Log file (override with LOGFILE env var)
 # Use macOS-friendly per-user Logs directory when on Darwin, otherwise /tmp
 if [ "$(uname)" = "Darwin" ]; then
