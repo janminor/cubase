@@ -1,9 +1,15 @@
 # cubase
-Helpful things for Cubase
+Possibly helpful things for Cubase
+
+### Audio Export Post Process Scripts for Cubase
+
+Audio Export Post Process Scripts can run after the audio export is finished and can do pretty much anything with the resulting audio file.
+
+See [README.md](AudioExportProcessScripts/README.md).
 
 ### CubaseKeyCommands.html, CubaseGenericRemote.html
 
-Single Page HTML apps that convert the Cubase XML Format of the Keycommands preference file or an exported Generic Remote file to a pretty HTML display that can be printed or saved.
+HTML app that convert the Cubase XML Format of the Keycommands preference file or an exported Generic Remote file to a pretty HTML display that can be printed or saved.
 
 Do it online [here](https://janminor.github.io/cubase/index.html)
 
@@ -18,11 +24,10 @@ For the generic Remote, you first need to export the config you want from the "G
 
 Then just double-click in the HTML-File (CubaseKeyCommands.html or CubaseGenericRemote.html), open the XML File and go.
 
+The "GenericRemote" app is of course redundant nowadays...
+
 ### drummaps
 
-a few drum maps for Cubase
+a few [drum maps](https://github.com/janminor/cubase/tree/master/drummaps) for Cubase.
 
-### Audio Export Post Process Scripts for Cubase 
-
-See [README.md](AudioExportProcessScripts\README.md).
   
