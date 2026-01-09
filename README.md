@@ -24,7 +24,7 @@ For the generic Remote, you first need to export the config you want from the "G
 
 Then just double-click in the HTML-File (CubaseKeyCommands.html or CubaseGenericRemote.html), open the XML File and go.
 
-The "GenericRemote" app is of course redundant nowadays...
+The "GenericRemote" app is of course rather obsolete nowadays...
 
 ### drummaps
 
